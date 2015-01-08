@@ -1,0 +1,154 @@
+#include "qspi.h"
+
+void delay(void);
+void chip_select(QSPI qspi);
+void chip_deselect(QSPI qspi);
+uint8_t qspi_byte(uint8_t data);
+
+void delay(void){
+	int i;
+	for(i = 0; i < 5; i++){
+		__asm__ __volatile__("nop");
+	}
+}
+
+void qspi_init(QSPI qspi, QSPI_MODE mode, uint32_t baudrate){
+	
+	PPMRL &= ~PPMRH_CDGPIO_BITMASK;
+	PPMRL &= ~PPMRL_CDQSPI_BITMASK;
+	
+	PQSPAR &= ~(PQSPAR_PQSPAR01_BITMASK | PQSPAR_PQSPAR11_BITMASK | PQSPAR_PQSPAR21_BITMASK |
+			PQSPAR_PQSPAR31_BITMASK | PQSPAR_PQSPAR41_BITMASK | PQSPAR_PQSPAR51_BITMASK | PQSPAR_PQSPAR61_BITMASK);
+	PQSPAR |= PQSPAR_PQSPAR00_BITMASK | PQSPAR_PQSPAR10_BITMASK | PQSPAR_PQSPAR20_BITMASK;
+	
+	switch(qspi){
+		case QSPI0:
+			PQSPAR &= ~PQSPAR_PQSPAR31_BITMASK;
+			PQSPAR |= PQSPAR_PQSPAR30_BITMASK;
+			break;
+			
+		case QSPI2:
+			PQSPAR &= ~PQSPAR_PQSPAR51_BITMASK;
+			PQSPAR |= PQSPAR_PQSPAR50_BITMASK;
+			break;
+			
+		case QSPI3:
+			PQSPAR &= ~PQSPAR_PQSPAR61_BITMASK;
+			PQSPAR |= PQSPAR_PQSPAR60_BITMASK;
+			break;
+	}
+	
+	if(baudrate > 1){
+		uint8_t baud = (uint8_t)(80000000L / (baudrate * 2));
+		QMR	|= baud;
+	}
+	
+	QMR &= ~(QMR_CPOL_BITMASK | QMR_CPHA_BITMASK);
+	QMR	|= (mode << 8);
+		
+	QAR = 0x20;
+	QDR |= QDR_DATA8_BITMASK | QDR_DATA9_BITMASK | QDR_DATA10_BITMASK | QDR_DATA11_BITMASK;
+	QDR &= ~(QDR_DATA12_BITMASK | QDR_DATA13_BITMASK | QDR_DATA14_BITMASK | QDR_DATA15_BITMASK);
+	QMR |= QMR_MSTR_BITMASK | QMR_BITS3_BITMASK;
+	QDLYR |= QDLYR_SPE_BITMASK;
+	QWR |= QWR_CSIV_BITMASK;
+	QIR |= QIR_SPIF_BITMASK;
+}
+
+
+void chip_select(QSPI qspi){
+
+	QAR = 0x20;
+	switch(qspi){
+		case QSPI0:
+			QDR &= ~QDR_DATA0_BITMASK;
+			break;
+			
+		case QSPI2:
+			QDR &= ~QDR_DATA2_BITMASK;
+			break;
+			
+		case QSPI3:
+			QDR &= ~QDR_DATA3_BITMASK;
+			break;
+	}
+
+	delay();
+}
+
+void chip_deselect(QSPI qspi){
+
+	QAR = 0x20;
+	switch(qspi){
+	case QSPI0:
+		QDR |= QDR_DATA0_BITMASK;
+		break;
+		
+	case QSPI2:
+		QDR |= QDR_DATA2_BITMASK;
+		break;
+		
+	case QSPI3:
+		QDR |= QDR_DATA3_BITMASK;
+		break;
+	}
+	delay();
+}
+
+uint8_t qspi_byte(uint8_t data)
+{
+	while (!(QIR & QIR_SPIF_BITMASK)){}
+	QAR = 0x00;
+	QDR = data;
+	QIR |= QIR_SPIF_BITMASK;
+	QDLYR |= QDLYR_SPE_BITMASK;
+	while (!(QIR & QIR_SPIF_BITMASK)){}
+	QAR = 0x10;
+	return (uint8_t)QDR;
+}
+
+uint8_t qspi_write(QSPI qspi, uint8_t byte){
+	chip_select(qspi);
+	qspi_byte(byte);	
+	chip_deselect(qspi);
+}
+
+uint8_t qspi_write_cmd(QSPI qspi, uint8_t reg, uint8_t cmd){
+	uint8_t value = 0;
+	chip_select(qspi);
+	qspi_byte(reg);	
+	value = qspi_byte(cmd);	
+	chip_deselect(qspi);	
+	return value;
+}
+
+
+uint8_t qspi_read_data(QSPI qspi, uint8_t reg){
+	uint8_t value = 0;
+	chip_select(qspi);
+	qspi_byte(reg);
+	value = qspi_byte(0x00);
+	chip_deselect(qspi);
+	return value;
+}
+
+void qspi_write_nbytes(QSPI qspi, uint8_t reg, uint8_t length, uint8_t * pdata){
+	int i = 0;
+	chip_select(qspi);
+	qspi_byte(reg);
+	for(i = 0; i < length; i++){
+		qspi_byte(*(pdata + i));
+	}
+	chip_deselect(qspi);
+}
+
+void qspi_read_nbytes(QSPI qspi, uint8_t reg, uint8_t length, uint8_t * pdata){
+	int i = 0;
+	chip_select(qspi);
+	qspi_byte(reg);
+	for(i = 0; i < length; i++){
+		*(pdata + i) = qspi_byte(0x00);
+	}
+	chip_deselect(qspi);
+} 
+  
