@@ -147,17 +147,14 @@ int main(void)
 	sprintf(s, "irlr: %d\n", MCF_INTC0_IRLR);
 	uart_putstr(1,s);
 	delay_ms(100);*/
-//	I2CInit();
-//	char * s;
+
 	mpu6050_init();
 	delay_ms(2);
 	uint8_t wai = I2CReadByte(MPU6050_DEFAULT_ADDRESS, MPU6050_RA_WHO_AM_I);
-//	sprintf(s, "who am i: %d\n", wai);
-//	uart_putstr(1,s);
 	uart_putchar(1,wai);
 	uart_putchar(1,'\n');
 	mpu6050_update();
-//	printf("temp: %d\n", (int)GetTemp());
+
 	uint16_t* omega;
 	uint16_t* accel;
 	while (1)
@@ -168,7 +165,7 @@ int main(void)
 		accel = GetAccel();
 //		uart_putchar(1,GetTemp());
 //		uart_putchar(1,'\n');
-		sprintf(s, "%d %d %d %d %d %d %d\n", accel[0], accel[1], accel[2], omega[0], omega[1], omega[2], (int)GetTemp());
+		sprintf(s, "%d %d %d %d %d %d %d\n", accel[0], accel[1], accel[2], omega[0], omega[1], omega[2], GetTemp());
 		uart_putstr(1,s);
 		delay_ms(1000);
 		/*

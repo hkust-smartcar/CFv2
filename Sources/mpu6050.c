@@ -93,18 +93,18 @@ void mpu6050_update(){
 		if (i <= 5)
 		{
 			const int j = i / 2;
-			raw_accel[j] = data[i] << 8 | data[i + 1];
+			raw_accel[j] = (data[i] << 8) | data[i + 1];
 			g_accel[j] = raw_accel[j] / (uint16_t)GetAccelScaleFactor();
 		}
 		else if (i == 6)
 		{
-			uint16_t raw_temp = data[i] << 8 | data[i + 1];
-			g_temp = raw_temp / 340 + 36/*.53*/;
+			uint16_t raw_temp = (data[i] << 8) | data[i + 1];
+			g_temp = raw_temp / 340 + 36;/*.53;*/
 		}
 		else
 		{
-			/*const */int j = (i - 8) / 2;
-			raw_gyro[j] = data[i] << 8 | data[i + 1];
+			const int j = (i - 8) / 2;
+			raw_gyro[j] = (data[i] << 8) | data[i + 1];
 			g_omega[j] = raw_gyro[j] / (uint16_t)GetGyroScaleFactor();
 		}
 	}

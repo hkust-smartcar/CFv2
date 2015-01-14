@@ -24,10 +24,10 @@ void I2CRepeatedStart();
 
 void I2CStop();
 
-void I2CSend(uint8_t data, uint8_t ack);
+void I2CSend(uint8_t data);
 
 
-uint8_t I2CGet(uint8_t ack);
+uint8_t I2CGet();
 
 void I2CWriteByte(uint8_t address, uint8_t reg, uint8_t data);
 

@@ -1,0 +1,155 @@
+
+
+#>00001000          ___heap_size (linker command file)
+#>00001000          ___stack_size (linker command file)
+#>40000000          ___IPSBAR (linker command file)
+#>20000000          ___RAMBAR (linker command file)
+#>00010000          ___RAMBAR_SIZE (linker command file)
+#>00000000          ___FLASHBAR (linker command file)
+#>00080000          ___FLASHBAR_SIZE (linker command file)
+#>2000FFFC          ___SP_AFTER_RESET (linker command file)
+
+# .userram
+
+# .code
+
+# .vectorram
+
+# .vectors
+  00000000 00000400 .vectortable _vect	(exceptions_c.obj)
+
+# .cfmprotect
+  00000400 00000018 .cfmconfig _cfm	(cfm_c.obj)
+
+# .text
+  00000500 00000008 .text   __initialize_system	(startcf_c.obj)
+  00000508 0000006C .text   __copy_rom_section	(startcf_c.obj)
+  00000574 0000005C .text   __copy_rom_sections_to_ram	(startcf_c.obj)
+  000005D0 00000004 .text   _ExitProcess	(startcf_c.obj)
+  000005D4 0000022A .text   clear_mem	(startcf_c.obj)
+  000007FE 0000009A .text   _startup	(startcf_c.obj)
+  00000898 00000174 .text   uart_init	(uart_c.obj)
+  00000A0C 00000046 .text   uart_putchar	(uart_c.obj)
+  00000A52 00000054 .text   uart_putstr	(uart_c.obj)
+  00000AA6 00000060 .text   mpu6050_init	(mpu6050_c.obj)
+  00000B06 00000046 .text   GetAccelScaleFactor	(mpu6050_c.obj)
+  00000B4C 00000046 .text   GetGyroScaleFactor	(mpu6050_c.obj)
+  00000B92 000001AC .text   mpu6050_update	(mpu6050_c.obj)
+  00000D3E 0000000E .text   GetTemp	(mpu6050_c.obj)
+  00000D4C 00000010 .text   GetOmega	(mpu6050_c.obj)
+  00000D5C 00000010 .text   GetAccel	(mpu6050_c.obj)
+  00000D6C 00000116 .text   main	(main_c.obj)
+  00000E82 000000AA .text   I2CInit	(i2c_master_c.obj)
+  00000F2C 00000074 .text   I2CReset	(i2c_master_c.obj)
+  00000FA0 0000004C .text   I2CStart	(i2c_master_c.obj)
+  00000FEC 00000046 .text   I2CSend	(i2c_master_c.obj)
+  00001032 00000046 .text   I2CGet	(i2c_master_c.obj)
+  00001078 00000070 .text   I2CWriteByte	(i2c_master_c.obj)
+  000010E8 000000F4 .text   I2CReadByte	(i2c_master_c.obj)
+  000011DC 0000016C .text   I2CReadBytes	(i2c_master_c.obj)
+  00001348 00000198 .text   mcf_exception_handler	(exceptions_c.obj)
+  000014E0 00000020 .text   asm_exception_handler	(exceptions_c.obj)
+  00001500 00000008 .text   mcf5xxx_wr_vbr	(exceptions_c.obj)
+  00001508 00000062 .text   initialize_exceptions	(exceptions_c.obj)
+  0000156A 00000044 .text   delay_us	(delay_c.obj)
+  000015AE 00000020 .text   delay_ms	(delay_c.obj)
+  000015CE 00000028 .text   pll_init	(MCF52255_sysinit_c.obj)
+  000015F6 00000022 .text   scm_init	(MCF52255_sysinit_c.obj)
+  00001618 0000003E .text   __initialize_hardware	(MCF52255_sysinit_c.obj)
+  00001656 00000038 .text   __StringWrite	(libc.a printf.o       )
+  0000168E 0000005A .text   vsnprintf	(libc.a printf.o       )
+  000016E8 0000001A .text   sprintf	(libc.a printf.o       )
+  00001702 0000001E .text   isdigit	(libc.a strtoul.o      )
+  00001720 00000038 .text   brk	(libc.a alloc.o        )
+  00001758 0000002A .text   sbrk	(libc.a alloc.o        )
+  00001782 0000017A .text   malloc	(libc.a alloc.o        )
+  000018FC 0000000C .text   free	(libc.a alloc.o        )
+  00001908 00000012 .text   memcpy	(libc.a mem.o          )
+  0000191A 00000020 .text   memchr	(libc.a mem.o          )
+  0000193C 00000010 .text   strlen	(libc.a string.o       )
+  0000194C 00000028 .text   strchr	(libc.a string.o       )
+  00001974 000002BA .text   parse_format	(libc.a printformat_.o )
+  00001C2E 0000002A .text   set_base	(libc.a printformat_.o )
+  00001C58 000000D6 .text   justify_conversion	(libc.a printformat_.o )
+  00001D2E 00000116 .text   long2str	(libc.a printformat_.o )
+  00001E44 000003FC .text   __pformatter	(libc.a printformat_.o )
+  00002240 0000000C .text   _ewl_exit	(librt.a abort_exit.o   )
+  0000224C 0000001C .text   __call_static_initializers	(librt.a cf_staticinitia)
+  00002268 0000002C .text   __destroy_global_chain	(librt.a cf_staticinitia)
+  00002294 00000006 .text   __vla_alloc	(librt.a vla_alloc.o    )
+  0000229A 00000006 .text   __vla_free	(librt.a vla_alloc.o    )
+  000022A0 0000004A .text   @DummyFn3	(fp_coldfire.a ftou.o         )
+  000022A0 00000000 .text   _f_ftou	(fp_coldfire.a ftou.o         )
+  000022A0 0000004A .text   .text	(fp_coldfire.a ftou.o         )
+  000022EC 00000016 .rodata @129	(main_c.obj)
+  00002302 00000006 .rodata @26	(exceptions_c.obj)
+  00002308 00000081 .rodata _ctypes_	(libc.a ctype.o        )
+  00002389 00000001 .rodata @609	(libc.a printformat_.o )
+#>0000238C          ___ROM_AT (linker command file)
+#>0000238C          ___DATA_ROM (linker command file)
+
+# .data
+#>20000400          ___DATA_RAM (linker command file)
+#>20000400          __exception_table_start__ (linker command file)
+# Exception index
+  20000400 00000000         Exception Table Index	()
+#>20000400          __exception_table_end__ (linker command file)
+#>20000400          ___sinit__ (linker command file)
+# Linker generated symbols
+  20000400 00000004         static initializer	(linker generated)
+#>20000404          __START_DATA (linker command file)
+  20000404 00000001 .data   g_gyro_range	(mpu6050_c.obj)
+  20000405 00000001 .data   g_accel_range	(mpu6050_c.obj)
+#>20000408          __END_DATA (linker command file)
+#>20000408          __START_SDATA (linker command file)
+  20000408 00000004 .sdata  tail	(libc.a alloc.o        )
+  2000040C 00000004 .sdata  __break	(libc.a alloc.o        )
+#>20000410          __END_SDATA (linker command file)
+#>20000410          ___DATA_END (linker command file)
+#>20000410          __SDA_BASE (linker command file)
+
+# .bss
+#>20000410          ___BSS_START (linker command file)
+#>20000410          __START_SBSS (linker command file)
+  20000410 00000004 .sbss   head	(libc.a alloc.o        )
+#>20000414          __END_SBSS (linker command file)
+#>20000414          __START_BSS (linker command file)
+  20000414 00000006 .bss    g_omega	(mpu6050_c.obj)
+  2000041A 00000002 .bss    g_temp	(mpu6050_c.obj)
+  2000041C 00000006 .bss    g_accel	(mpu6050_c.obj)
+  20000424 00000004 .bss    s	(main_c.obj)
+  20000428 00000004 .bss    __global_destructor_chain	(librt.a cf_staticinitia)
+#>2000042C          __END_BSS (linker command file)
+#>2000042C          ___BSS_END (linker command file)
+
+# .custom
+#>2000042C          ___HEAP_START (linker command file)
+#>2000042C          ___heap_addr (linker command file)
+#>2000142C          ___HEAP_END (linker command file)
+#>2000142C          ___SP_END (linker command file)
+#>2000242C          ___SP_INIT (linker command file)
+#>20000000          ___VECTOR_RAM (linker command file)
+#>2000242C          __SP_INIT (linker command file)
+#>2000142C          ___mem_limit (linker command file)
+#>00000010          ___stack_safety (linker command file)
+#>0000239C          _romp_at (linker command file)
+
+# .romp
+#>0000239C          __S_romp (linker command file)
+
+
+# Memory map:
+  v_addr   p_addr   size     name
+  00000000 00000000 00000400 .vectors   vectorrom
+  00000400 00000400 00000018 .cfmprotect cfmprotrom
+  00000500 00000500 00000000 .code      code
+  00000500 00000500 00001E8C .text      code
+  20000000 20000000 00000000 .vectorram vectorram
+  20000400 20000400 00000000 .userram   userram
+  20000400 0000238C 00000010 .data      userram
+  20000410 20000410 0000001C .bss       userram
+  2000042C 2000042C 00000000 .custom    userram
+  2000042C 0000239C 00000018 .romp      userram
+
+# Link start time: Thu Jan 15 01:04:10 2015
+# Link end time: Thu Jan 15 01:04:10 2015
