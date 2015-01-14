@@ -14,9 +14,9 @@
 uint8 g_gyro_range = 2;
 uint8 g_accel_range = 2;
 
-float g_accel[3];
-float g_temp;
-float g_omega[3];
+uint16_t g_accel[3];
+uint16_t g_temp;
+uint16_t g_omega[3];
 
 void mpu6050_init(){
 	uint8 gyro_config;
@@ -94,29 +94,34 @@ void mpu6050_update(){
 		{
 			const int j = i / 2;
 			raw_accel[j] = data[i] << 8 | data[i + 1];
-			g_accel[j] = (float)raw_accel[j] / GetAccelScaleFactor();
+			g_accel[j] = raw_accel[j] / (uint16_t)GetAccelScaleFactor();
 		}
 		else if (i == 6)
 		{
-			const uint16_t raw_temp = data[i] << 8 | data[i + 1];
-			g_temp = (float)raw_temp / 340 + 36.53;
+			uint16_t raw_temp = data[i] << 8 | data[i + 1];
+			g_temp = raw_temp / 340 + 36/*.53*/;
 		}
 		else
 		{
-			const int j = (i - 8) / 2;
+			/*const */int j = (i - 8) / 2;
 			raw_gyro[j] = data[i] << 8 | data[i + 1];
-			g_omega[j] = (float)raw_gyro[j] / GetGyroScaleFactor();
+			g_omega[j] = raw_gyro[j] / (uint16_t)GetGyroScaleFactor();
 		}
 	}
 }
 
-float GetTemp(){
+uint16_t GetTemp(){
 	return g_temp;
 }
 
-float GetOmega(){
-	return g_omega[0];
+uint16_t* GetOmega(){
+	return g_omega;
 }
+
+uint16_t* GetAccel(){
+	return g_accel;
+}
+
 
 //float* GetOmega(){
 //	return g_omega;

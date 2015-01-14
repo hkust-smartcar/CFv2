@@ -22,12 +22,12 @@ __interrupt__ void pit_isr_handler();
  *  to output messages to the standard io. 
  * 
  */
-#define NO_PRINTF    0
+#define NO_PRINTF    1
 
 #if NO_PRINTF
-#define VECTORDISPLAY(MESSAGE)                    do {uart_putstr(1, MESSAGE);} while(0)
-#define VECTORDISPLAY2(MESSAGE,MESSAGE2)          do {extern char*s; sprintf(s, MESSAGE, MESSAGE2); uart_putstr(1, s);} while(0)
-#define VECTORDISPLAY3(MESSAGE,MESSAGE2,MESSAGE3) do {extern char*s; sprintf(s, MESSAGE, MESSAGE2, MESSAGE3); uart_putstr(1, s);} while(0)
+#define VECTORDISPLAY(MESSAGE)                    do {/*uart_putstr(1, MESSAGE);*/} while(0)
+#define VECTORDISPLAY2(MESSAGE,MESSAGE2)          do {/*extern char*s; sprintf(s, MESSAGE, MESSAGE2); uart_putstr(1, s);*/} while(0)
+#define VECTORDISPLAY3(MESSAGE,MESSAGE2,MESSAGE3) do {/*extern char*s; sprintf(s, MESSAGE, MESSAGE2, MESSAGE3); uart_putstr(1, s);*/} while(0)
 #else
 #include <stdio.h>
 #define VECTORDISPLAY(MESSAGE1)                    printf(MESSAGE1);

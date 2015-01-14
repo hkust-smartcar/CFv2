@@ -82,7 +82,7 @@
 						</tool>
 					</fileInfo>
 					<sourceEntries>
-						<entry excluding="Sources/i2c.c|Project_Headers/i2c.h|Sources/iic.c|Project_Headers/iic.h|Sources/console_io_cf.c|Project_Settings/Linker_Files/MCF52255_Console_Internal_RAM.lcf|Project_Settings/Debugger/MCF52255.mem|Project_Settings/Debugger/MCF52255.cfg|Project_Settings/Linker_Files/MCF52255_Internal_Flash.lcf|Sources/cfm.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="Sources/syscall.c|Sources/i2c.c|Project_Headers/i2c.h|Sources/iic.c|Project_Headers/iic.h|Sources/console_io_cf.c|Project_Settings/Linker_Files/MCF52255_Console_Internal_RAM.lcf|Project_Settings/Debugger/MCF52255.mem|Project_Settings/Debugger/MCF52255.cfg|Project_Settings/Linker_Files/MCF52255_Internal_Flash.lcf|Sources/cfm.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -162,7 +162,7 @@
 						</tool>
 					</fileInfo>
 					<sourceEntries>
-						<entry excluding="Sources/i2c.c|Project_Headers/i2c.h|Sources/iic.c|Project_Headers/iic.h|Project_Settings/Linker_Files/MCF52255_Internal_RAM.lcf|Project_Settings/Debugger/MCF52255.mem|Project_Settings/Debugger/MCF52255.cfg|Project_Settings/Linker_Files/MCF52255_Internal_Flash.lcf|Sources/cfm.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="Sources/syscall.c|Sources/i2c.c|Project_Headers/i2c.h|Sources/iic.c|Project_Headers/iic.h|Project_Settings/Linker_Files/MCF52255_Internal_RAM.lcf|Project_Settings/Debugger/MCF52255.mem|Project_Settings/Debugger/MCF52255.cfg|Project_Settings/Linker_Files/MCF52255_Internal_Flash.lcf|Sources/cfm.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -204,7 +204,7 @@
 									<listOptionValue builtIn="false" value="__cfm"/>
 								</option>
 								<option id="com.freescale.coldfire.toolchain.linker.base.input.lcf_file.1250006355" name="Link Command File (.lcf)" superClass="com.freescale.coldfire.toolchain.linker.base.input.lcf_file" value="${ProjDirPath}/Project_Settings/Linker_Files/MCF52255_Internal_Flash.lcf" valueType="string"/>
-								<option id="com.freescale.coldfire.toolchain.linker.base.input.nostdlib.1053576765" superClass="com.freescale.coldfire.toolchain.linker.base.input.nostdlib" value="false" valueType="boolean"/>
+								<option id="com.freescale.coldfire.toolchain.linker.base.input.nostdlib.1053576765" name="No Standard Library (-nostdlib)" superClass="com.freescale.coldfire.toolchain.linker.base.input.nostdlib" value="false" valueType="boolean"/>
 								<inputType id="com.freescale.coldfire.toolchain.linker.base.input.879257079" name="Linker Input" superClass="com.freescale.coldfire.toolchain.linker.base.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -246,7 +246,7 @@
 						</tool>
 					</fileInfo>
 					<sourceEntries>
-						<entry excluding="Sources/i2c.c|Project_Headers/i2c.h|Sources/iic.c|Project_Headers/iic.h|Sources/console_io_cf.c|Project_Settings/Linker_Files/MCF52255_Console_Internal_RAM.lcf|Project_Settings/Linker_Files/MCF52255_Internal_RAM.lcf|Project_Settings/Debugger/MCF52255.mem|Project_Settings/Debugger/MCF52255.cfg" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="Sources/syscall.c|Sources/i2c.c|Project_Headers/i2c.h|Sources/iic.c|Project_Headers/iic.h|Sources/console_io_cf.c|Project_Settings/Linker_Files/MCF52255_Console_Internal_RAM.lcf|Project_Settings/Linker_Files/MCF52255_Internal_RAM.lcf|Project_Settings/Debugger/MCF52255.mem|Project_Settings/Debugger/MCF52255.cfg" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

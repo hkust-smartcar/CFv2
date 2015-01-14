@@ -17,6 +17,7 @@
 #include "mpu6050_device.h"
 #include "exceptions.h"
 #include "interrupts.h"
+#include "i2c_master.h"
 
 
 /*volatile uint32_t g_counter = 0;
@@ -26,7 +27,7 @@ void pit_isr_handler(){
 	g_counter++;
 }*/
 char* s;
-extern float* g_omega;
+extern uint16_t* g_omega;
 /*
 void pit0_init() {
 	// Clear the enable bit so we can configure the timer
@@ -83,20 +84,23 @@ int main(void)
 	
 	/*GPIO tests*/
 	//Config PortTJ4 as GPIO
-	gpio_init(PTTJ, PIN4, GPIO, OUT, CLR);
+//	gpio_init(PTTJ, PIN4, GPIO, OUT, CLR);
+//	gpio_init(PTTJ, PIN0, GPIO, OUT, CLR);
+//	gpio_init(PTTJ, PIN7, GPIO, OUT, CLR);
+//	gpio_init(PTTJ, PIN1, GPIO, OUT, CLR);
+//	gpio_init(PTTJ, PIN6, GPIO, OUT, CLR);
 	/*GPIO tests*/
+	
 	
 //	delay_ms(500);
 	/*uart tests*/
 	uart_init(1,SYSTEM_CLOCK_KHZ,115200);
-	printf("Hello World in C++ from MCF52255 derivative on MCF52255 board\n\r");
+//	printf("Hello World in C++ from MCF52255 derivative on MCF52255 board\n\r");
 	
 	/*uart tests*/
 //	delay_ms(1000);
 //	result = QSPIInit(15000,0,8,0,0,1);
 //	LcdInit();
-	mpu6050_init();
-	delay_ms(5);
 //	uint8_t *state = (uint8_t*)malloc(1);
 //	i2c_rx(MPU6050_DEFAULT_ADDRESS, 1, state, 150);
 //	d2 = I2CreceiveByte(MPU6050_RA_TEMP_OUT_L, MPU6050_DEFAULT_ADDRESS);
@@ -143,15 +147,29 @@ int main(void)
 	sprintf(s, "irlr: %d\n", MCF_INTC0_IRLR);
 	uart_putstr(1,s);
 	delay_ms(100);*/
-	
+//	I2CInit();
+//	char * s;
+	mpu6050_init();
+	delay_ms(2);
+	uint8_t wai = I2CReadByte(MPU6050_DEFAULT_ADDRESS, MPU6050_RA_WHO_AM_I);
+//	sprintf(s, "who am i: %d\n", wai);
+//	uart_putstr(1,s);
+	uart_putchar(1,wai);
+	uart_putchar(1,'\n');
 	mpu6050_update();
-	printf("temp: %d\n", (int)GetTemp());
-	
+//	printf("temp: %d\n", (int)GetTemp());
+	uint16_t* omega;
+	uint16_t* accel;
 	while (1)
 	{
+		
 		mpu6050_update();
-		/*sprintf(s, "%d %d %d temp: %d\n", GetOmega(), g_omega[1], g_omega[2], (int)GetTemp());
-		uart_putstr(1,s);*/
+		omega = GetOmega();
+		accel = GetAccel();
+//		uart_putchar(1,GetTemp());
+//		uart_putchar(1,'\n');
+		sprintf(s, "%d %d %d %d %d %d %d\n", accel[0], accel[1], accel[2], omega[0], omega[1], omega[2], (int)GetTemp());
+		uart_putstr(1,s);
 		delay_ms(1000);
 		/*
 	if(g_counter > 1000){
