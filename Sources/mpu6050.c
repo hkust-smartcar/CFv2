@@ -121,9 +121,3 @@ uint16_t* GetOmega(){
 uint16_t* GetAccel(){
 	return g_accel;
 }
-
-
-//float* GetOmega(){
-//	return g_omega;
-//}
-

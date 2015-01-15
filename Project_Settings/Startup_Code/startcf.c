@@ -290,6 +290,9 @@ __skip_rom_copy__:
 
 	jsr		  	  __initialize_system
 
+	/* enable interrupt */
+	move.w        #0x2000,sr
+	
 	/* call main(int, char **) */
 	pea			  __argv
 	clr.l		  -(sp)				/* clearing a long is ok since it's caller cleanup */

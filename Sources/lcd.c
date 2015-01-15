@@ -12,8 +12,8 @@ static void SetActiveRect(const uint8 x, const uint8 y, const uint8 w,
 		const uint8 h);
 static void Send(const uint8_t is_cmd, const uint8 data);
 
-#define GpioSetRst(x) gpio_set(PTQS, PIN5, x);
-#define GpioSetDc(x) gpio_set(PTQS, PIN6, x);
+#define GpioSetRst(x) gpio_set(PTQS, PIN6, x);
+#define GpioSetDc(x) gpio_set(PTQS, PIN5, x);
 //#define GpioSetCs(x) Bit3_PutVal(x)
 //#define GpioSetSdat(x) Bit4_PutVal(x)
 //#define GpioSetSclk(x) Bit5_PutVal(x)
@@ -144,7 +144,7 @@ static const uint8 DATA_8x16[1520] = {
 
 void LcdInit(void)
 {
-
+	qspi_init(QSPI0, Q_MODE0, 1000000L);
 	gpio_init(PTQS, PIN5, GPIO, OUT, CLR);
 	gpio_init(PTQS, PIN6, GPIO, OUT, CLR);
 	uart_putstr(1,"QS5 QS6 inited\n");
@@ -323,7 +323,7 @@ static void SetActiveRect(const uint8 x, const uint8 y, const uint8 w,
 void Send(uint8_t is_cmd, uint8_t data)
 {
 	GpioSetDc(!is_cmd);
-//	qspi_write(QSPI0, data);
-	QSPIPollTransferByteRaw(data, 0);
+	qspi_write(QSPI0, data);
+//	QSPIPollTransferByteRaw(data, 0);
 	
 }

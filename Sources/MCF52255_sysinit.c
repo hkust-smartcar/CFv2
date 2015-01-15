@@ -74,5 +74,4 @@ void __initialize_hardware(void)
 	scm_init();	
 
 	initialize_exceptions();
-
 }
