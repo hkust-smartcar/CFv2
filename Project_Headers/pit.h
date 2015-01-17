@@ -36,7 +36,7 @@ typedef void (* pit_isr) (void);
 /*
  * Functions provided by this driver
  */
-int8 PITInit(uint8 u8Prescaler, uint16 u16Modulus, uint8 u8PITModule);
+int8 PITInit(/*uint8 u8Prescaler, uint16 u16Modulus, */uint8 u8PITModule);
 void PIT_EnableInts(vectorTableEntryType pit_isr_ptr, uint8 u8PITModule);
 int8 PIT_CountDown(uint32 u32FreqHz, uint8 u8PITModule);
 void PIT_DisableInts(uint8 u8PITModule);

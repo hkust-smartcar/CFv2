@@ -29,17 +29,20 @@ uint8 u8CountdownPIT = 0;
  *  3. Set Modulus 
  *  4. Set Reload according to mode
  */
-int8 PITInit(uint8 u8Prescaler, uint16 u16Modulus, uint8 u8PITModule)
+int8 PITInit(/*uint8 u8Prescaler, uint16 u16Modulus, */uint8 u8PITModule)
 {
 	MCF_PIT_PCSR(u8PITModule) = 0x00;
-	MCF_PIT_PCSR(u8PITModule) |= MCF_PIT_PCSR_PRE(u8Prescaler);
+//	MCF_PIT_PCSR(u8PITModule) |= MCF_PIT_PCSR_PRE(u8Prescaler);
+//	MCF_PIT_PCSR(u8PITModule) |= MCF_PIT_PCSR_PRE(5);
+	
 
     /* Enable reload for periodic mode */
     MCF_PIT_PCSR(u8PITModule) |= MCF_PIT_PCSR_RLD;
 
     // Overwrite counter immediately
     MCF_PIT_PCSR(u8PITModule) |= MCF_PIT_PCSR_OVW;
-	MCF_PIT_PMR(u8PITModule) = u16Modulus;
+//	MCF_PIT_PMR(u8PITModule) = u16Modulus;
+    PIT_SetPeriod (1, u8PITModule);
     
     return 0;	
 }

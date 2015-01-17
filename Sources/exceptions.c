@@ -14,7 +14,6 @@
 //extern __declspec(system) unsigned long __VECTOR_RAM[];
 //extern vectorTableEntryType __VECTOR_RAM[];
 #define VECTOR_RAM_ADDRESS    (uint32)__VECTOR_RAM
-__interrupt__ void pit_isr_handler();
 
 /***********************************************************************/
 /*

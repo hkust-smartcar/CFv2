@@ -2,30 +2,15 @@ Sources/qspi_c.obj: C:\Users\Harrison\CWworkspace\52255\Sources\qspi.c \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\lib_ewl.prefix \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\common.prefix \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\ewl_c_version.h \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\stdlib.h \
+	C:\Users\Harrison\CWworkspace\52255\Project_Headers\qspi.h \
+	C:\Users\Harrison\CWworkspace\52255\Project_Headers\support_common.h \
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\cstdint \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\ansi_parms.h \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\ewlGlobals.h \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\coldfire\ansi_prefix.CF.h \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\os_enum.h \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\cstdlib \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\div_t.h \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\null.h \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\size_t.h \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\ewl_lib_ext1.h \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\ewl_rsize_t.h \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\stdio.h \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\cstdio \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\stddef.h \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\cstddef \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\wchar_t.h \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\eof.h \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\va_list.h \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\file_struc.h \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\stdio_api.h \
-	C:\Users\Harrison\CWworkspace\52255\Project_Headers\qspi.h \
-	C:\Users\Harrison\CWworkspace\52255\Project_Headers\support_common.h \
-	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\cstdint \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\limits_api.h \
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\ewl_lib_ext1.h \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\(headers)\MCF52255\MCF52255.h \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\(headers)\MCF52255\MCF52255_SCM.h \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\(headers)\MCF52255\MCF52255_DMA.h \
@@ -57,6 +42,18 @@ Sources/qspi_c.obj: C:\Users\Harrison\CWworkspace\52255\Sources\qspi.c \
 	C:\Users\Harrison\CWworkspace\52255\Project_Headers\cw.h \
 	C:\Users\Harrison\CWworkspace\52255\Project_Headers\interrupts.h \
 	C:\Users\Harrison\CWworkspace\52255\Project_Headers\exceptions.h \
-	C:\Users\Harrison\CWworkspace\52255\Project_Headers\delay.h \
 	C:\Users\Harrison\CWworkspace\52255\Project_Headers\uart.h \
-	C:\Users\Harrison\CWworkspace\52255\Project_Headers\gpio.h 
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\cstdio \
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\stddef.h \
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\cstddef \
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\null.h \
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\size_t.h \
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\wchar_t.h \
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\ewl_rsize_t.h \
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\eof.h \
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\va_list.h \
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\file_struc.h \
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\stdio_api.h \
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\stdlib.h \
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\cstdlib \
+	C:\Freescale\CW\ MCU\ v10.6\MCU\ColdFire_Support\ewl\EWL_C\include\div_t.h 
