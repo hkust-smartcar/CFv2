@@ -147,7 +147,7 @@ void LcdInit(void)
 	qspi_init(QSPI0, Q_MODE0, 1000000L);
 	gpio_init(PTQS, PIN5, GPIO, OUT, CLR);
 	gpio_init(PTQS, PIN6, GPIO, OUT, CLR);
-	uart_putstr(1,"QS5 QS6 inited\n");
+	uart_putstr(0,"QS5 QS6 inited\n");
 	GpioSetRst(CLR);
 	DELAY_MS(100);
 	GpioSetRst(SET);

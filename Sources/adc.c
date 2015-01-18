@@ -13,7 +13,7 @@ void ADC_init(PINn pin)
 	 * Clock Divisor Select. This field controls the divider circuit, which generates the ADC clock by dividing the
 	system clock by 2*(DIV+1). DIV must be chosen so the ADC clock does not exceed 5.0 MHz. See Table 30-5
 	for a listing of ADC clock frequency based on the value of DIV for several configurations.*/
-	MCF_ADC_CTRL2 = 0b0000000000001001;
+	MCF_ADC_CTRL2 = 0b0000000000001001;	
 	/* Power Control Register (POWER)
 	 * PUDELAY : Power-Up Delay. This field determines the number of ADC clock cycles provided to enable an ADC converter
 	(after clearing PD0 or PD1) before allowing a scan to start. 

@@ -157,7 +157,7 @@
 <booleanAttribute key="com.freescale.sa.mcu.launch.SET_TGT_SETTING_ON_RUN" value="false"/>
 <stringAttribute key="net.sourceforge.usbdm.connections.usbdm.CommandLineArgs" value=""/>
 <stringAttribute key="net.sourceforge.usbdm.connections.usbdm.ConfigFile" value=""/>
-<stringAttribute key="net.sourceforge.usbdm.connections.usbdm.Library" value="usbdm-cfvx-gdi-debug"/>
+<stringAttribute key="net.sourceforge.usbdm.connections.usbdm.Library" value="usbdm-cfvx-gdi"/>
 <stringAttribute key="net.sourceforge.usbdm.connections.usbdm.cfvx.automaticReconnect" value="0"/>
 <stringAttribute key="net.sourceforge.usbdm.connections.usbdm.cfvx.connectionSpeed" value="1500000"/>
 <stringAttribute key="net.sourceforge.usbdm.connections.usbdm.cfvx.cycleTargetVddOnConnect" value="0"/>
@@ -172,7 +172,7 @@
 <stringAttribute key="net.sourceforge.usbdm.connections.usbdm.cfvx.resetReleaseInterval" value="500"/>
 <stringAttribute key="net.sourceforge.usbdm.connections.usbdm.cfvx.securityOption" value="2"/>
 <stringAttribute key="net.sourceforge.usbdm.connections.usbdm.cfvx.setTargetVdd" value="0"/>
-<stringAttribute key="net.sourceforge.usbdm.connections.usbdm.cfvx.useDebugBuild" value="1"/>
+<stringAttribute key="net.sourceforge.usbdm.connections.usbdm.cfvx.useDebugBuild" value="0"/>
 <stringAttribute key="net.sourceforge.usbdm.connections.usbdm.cfvx.usePSTSignals" value="0"/>
 <intAttribute key="org.eclipse.cdt.launch.ATTR_BUILD_BEFORE_LAUNCH_ATTR" value="2"/>
 <stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_ID" value="com.freescale.cdt.debug.cw.coldfire.ColdFireDebugger"/>

@@ -14,9 +14,9 @@
 uint8 g_gyro_range = 2;
 uint8 g_accel_range = 2;
 
-uint16_t g_accel[3];
-uint16_t g_temp;
-uint16_t g_omega[3];
+int16_t g_accel[3];
+int16_t g_temp;
+int16_t g_omega[3];
 
 void mpu6050_init(){
 	uint8 gyro_config;
@@ -84,8 +84,8 @@ float GetGyroScaleFactor(){
 
 void mpu6050_update(){
 	uint8* data = I2CReadBytes(MPU6050_DEFAULT_ADDRESS, MPU6050_RA_ACCEL_XOUT_H, 14);
-	uint16_t raw_accel[3];
-	uint16_t raw_gyro[3];
+	int16_t raw_accel[3];
+	int16_t raw_gyro[3];
 	int i;
 	
 	for (i = 0; i < 14; i += 2)
@@ -93,31 +93,31 @@ void mpu6050_update(){
 		if (i <= 5)
 		{
 			const int j = i / 2;
-			raw_accel[j] = (data[i] << 8) | data[i + 1];
-			g_accel[j] = raw_accel[j] / (uint16_t)GetAccelScaleFactor();
+			raw_accel[j] = ((int16_t)data[i] << 8) | (int16_t)data[i + 1];
+			g_accel[j] = raw_accel[j] / (int16_t)GetAccelScaleFactor();
 		}
 		else if (i == 6)
 		{
-			uint16_t raw_temp = (data[i] << 8) | data[i + 1];
+			int16_t raw_temp = ((int16_t)data[i] << 8) | (int16_t)data[i + 1];
 			g_temp = raw_temp / 340 + 36;/*.53;*/
 		}
 		else
 		{
 			const int j = (i - 8) / 2;
-			raw_gyro[j] = (data[i] << 8) | data[i + 1];
-			g_omega[j] = raw_gyro[j] / (uint16_t)GetGyroScaleFactor();
+			raw_gyro[j] = ((int16_t)data[i] << 8) | (int16_t)data[i + 1];
+			g_omega[j] = raw_gyro[j] / (int16_t)GetGyroScaleFactor();
 		}
 	}
 }
 
-uint16_t GetTemp(){
+int16_t GetTemp(){
 	return g_temp;
 }
 
-uint16_t* GetOmega(){
+int16_t* GetOmega(){
 	return g_omega;
 }
 
-uint16_t* GetAccel(){
+int16_t* GetAccel(){
 	return g_accel;
 }

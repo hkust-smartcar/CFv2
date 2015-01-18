@@ -13,8 +13,8 @@ void mpu6050_init();
 float GetAccelScaleFactor();
 float GetGyroScaleFactor();
 void mpu6050_update();
-uint16_t GetTemp();
-uint16_t* GetOmega();
-uint16_t* GetAccel();
+int16_t GetTemp();
+int16_t* GetOmega();
+int16_t* GetAccel();
 
 #endif /* MPU6050_H_ */

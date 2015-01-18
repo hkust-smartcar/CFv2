@@ -79,6 +79,8 @@ uart_init (int uartch, int sysclk, int baud)
 		| MCF_UART_UIMR_FFULL_RXRDY        
 		| MCF_UART_UIMR_DB              
 		| MCF_UART_UIMR_COS) ;
+	
+	__VECTOR_RAM[64+14] = (uint32)uart0_handler;
 #endif
 
     /* 
