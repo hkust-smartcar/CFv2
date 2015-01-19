@@ -2,6 +2,17 @@
 #define __LCD_H_
 
 #include "qspi.h"
+typedef enum{
+	FALSE = 0,
+	TRUE = 1
+}isCmd;
+
+void SetActiveRect(const uint8 x, const uint8 y, const uint8 w,
+		const uint8 h);
+void Send(isCmd is_cmd, uint8_t data);
+
+void SEND_COMMAND(uint8_t dat);
+void SEND_DATA(uint8_t dat);
 
 void LcdInit(void);
 void LcdClear(const uint16 color);

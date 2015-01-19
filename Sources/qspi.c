@@ -1,6 +1,7 @@
 #include "qspi.h"
 #include "support_common.h"
 #include "uart.h"
+#include "delay.h"
 #include <cstdint>
 #include <cstdio>
 #include <stdlib.h>
@@ -12,9 +13,10 @@ uint8_t qspi_byte(uint8_t data);
 
 void delay(void){
 	int i;
-	for(i = 0; i < 5; i++){
+	/*for(i = 0; i < 5; i++){
 		__asm__ __volatile__("nop");
-	}
+	}*/
+	delay_us(10);
 }
 
 void qspi_init(QSPI qspi, QSPI_MODE mode, uint32_t baudrate){
@@ -28,7 +30,7 @@ void qspi_init(QSPI qspi, QSPI_MODE mode, uint32_t baudrate){
 	MCF_GPIO_PQSPAR &= ~(MCF_GPIO_PQSPAR_PQSPAR0(0) | MCF_GPIO_PQSPAR_PQSPAR1(0) | 
 			MCF_GPIO_PQSPAR_PQSPAR2(0) | MCF_GPIO_PQSPAR_PQSPAR3(0) | 
 			MCF_GPIO_PQSPAR_PQSPAR4(0) | MCF_GPIO_PQSPAR_PQSPAR5(0) | MCF_GPIO_PQSPAR_PQSPAR6(0));
-	MCF_GPIO_PQSPAR |= MCF_GPIO_PQSPAR_QSPI_DOUT_DOUT | MCF_GPIO_PQSPAR_QSPI_DIN_DIN | MCF_GPIO_PQSPAR_QSPI_CLK_CLK;
+	MCF_GPIO_PQSPAR |= MCF_GPIO_PQSPAR_QSPI_DOUT_DOUT | /*MCF_GPIO_PQSPAR_QSPI_DIN_DIN | */MCF_GPIO_PQSPAR_QSPI_CLK_CLK;
 	
 	switch(qspi){
 		case QSPI0:
@@ -79,7 +81,7 @@ void chip_select(QSPI qspi){
 			break;
 	}
 
-	//delay();
+	delay();
 }
 
 void chip_deselect(QSPI qspi){
@@ -103,11 +105,11 @@ void chip_deselect(QSPI qspi){
 
 uint8_t qspi_byte(uint8_t data)
 {
-	char ch[128];
-	sprintf(ch, "s:%x\n", MCF_QSPI_QDLYR);
-	uart_putstr(1,ch);
-	sprintf(ch, "%x\n", MCF_QSPI_QIR);
-	uart_putstr(1,ch);
+//	char ch[128];
+//	sprintf(ch, "s:%x\n", MCF_QSPI_QDLYR);
+//	uart_putstr(1,ch);
+//	sprintf(ch, "%x\n", MCF_QSPI_QIR);
+//	uart_putstr(1,ch);
 	while (!(MCF_QSPI_QIR & MCF_QSPI_QIR_SPIF)){}
 	MCF_QSPI_QAR = 0x00;
 	MCF_QSPI_QDR = data;
@@ -115,10 +117,10 @@ uint8_t qspi_byte(uint8_t data)
 	MCF_QSPI_QDLYR |= MCF_QSPI_QDLYR_SPE;
 	while (!(MCF_QSPI_QIR & MCF_QSPI_QIR_SPIF)){}
 	MCF_QSPI_QAR = 0x10;
-	sprintf(ch, "e:%x\n", MCF_QSPI_QDLYR);
-	uart_putstr(1,ch);
-	sprintf(ch, "%x\n", MCF_QSPI_QIR);
-	uart_putstr(1,ch);
+//	sprintf(ch, "e:%x\n", MCF_QSPI_QDLYR);
+//	uart_putstr(1,ch);
+//	sprintf(ch, "%x\n", MCF_QSPI_QIR);
+//	uart_putstr(1,ch);
 	return (uint8_t)MCF_QSPI_QDR;
 }
 

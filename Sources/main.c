@@ -44,37 +44,38 @@ int main(void)
 	/*GPIO tests*/
 	
 	gpio_init(PTTC, PIN3, GPIO, OUT, CLR);
-	ADC_init(PIN5);
+//	ADC_init(PIN5);
 	
 	/*uart tests*/
 	uart_init(0,SYSTEM_CLOCK_KHZ,115200);
 	
 	/*uart tests*/
-//	LcdInit();
-//	LcdClear(0x0000);
-//	LcdDrawString(0, 32, "CCD2\0", 0xFFF0,0x0000);
+	LcdInit();
+	LcdClear(0xABCD);
+	LcdDrawString(0, 32, "CCD2", 0xFFF0,0x0000);
 
-//	qspi_init(QSPI0, Q_MODE0, 1000000L);
 		
 	PITInit(0);
 	PIT_EnableInts(&pit_isr_handler, 0);
 	PIT_Start(0);
 
-	mpu6050_init();
+//	mpu6050_init();
 
 	char s[100];
 	int16_t* omega;
 	uint16_t v=0;
 	while(1){
-		mpu6050_update();
+//		mpu6050_update();
 //		sprintf(s, "%d \n", (int16_t) GetTemp());
 
 //		delay_ms(100);
 		if(g_counter%1000==0){
-			v = ADonce(PIN5);
-			omega = GetOmega();
-			sprintf(s, "%d %d %d %d %d %d\n", g_counter, v, omega[0], omega[1], omega[2], GetTemp());
-			uart_putstr(0, s);
+			LcdDrawString(0, 1, "CCD2\0", 0xFFF0,0x0000);
+//			qspi_write(QSPI0, 0b1001011);
+//			v = ADonce(PIN5);
+//			omega = GetOmega();
+//			sprintf(s, "%d %d %d %d %d %d\n", g_counter, v, omega[0], omega[1], omega[2], GetTemp());
+//			uart_putstr(0, s);
 			if(on==1){
 //				gpio_clr(PTTJ,PIN4);
 				gpio_set(PTTJ, PIN1, SET);

@@ -4,22 +4,22 @@
 #include "delay.h"
 #include "gpio.h"
 #include "uart.h"
-#define TRUE	1
-#define FALSE	0
+
 #define DELAY_MS(x) delay_ms(x)
 
-static void SetActiveRect(const uint8 x, const uint8 y, const uint8 w,
-		const uint8 h);
-static void Send(const uint8_t is_cmd, const uint8 data);
-
 #define GpioSetRst(x) gpio_set(PTQS, PIN6, x);
-#define GpioSetDc(x) gpio_set(PTQS, PIN5, x);
+#define GpioSetDc(x) gpio_set(PTQS, PIN1, x);
 //#define GpioSetCs(x) Bit3_PutVal(x)
 //#define GpioSetSdat(x) Bit4_PutVal(x)
 //#define GpioSetSclk(x) Bit5_PutVal(x)
 
-#define SEND_COMMAND(dat) Send(TRUE, dat)
-#define SEND_DATA(dat) Send(FALSE, dat)
+void SEND_COMMAND(uint8_t dat){
+	Send(TRUE, dat);
+}
+
+void SEND_DATA(uint8_t dat){
+	Send(FALSE, dat);
+}
 
 #define CMD_SW_RESET 0x01
 #define CMD_SLEEP_OUT 0x11
@@ -145,9 +145,9 @@ static const uint8 DATA_8x16[1520] = {
 void LcdInit(void)
 {
 	qspi_init(QSPI0, Q_MODE0, 1000000L);
-	gpio_init(PTQS, PIN5, GPIO, OUT, CLR);
+	gpio_init(PTQS, PIN1, GPIO, OUT, CLR);
 	gpio_init(PTQS, PIN6, GPIO, OUT, CLR);
-	uart_putstr(0,"QS5 QS6 inited\n");
+
 	GpioSetRst(CLR);
 	DELAY_MS(100);
 	GpioSetRst(SET);
@@ -302,7 +302,7 @@ void LcdDrawChar(const uint8 x, const uint8 y, const char ch,
 	}
 }
 
-static void SetActiveRect(const uint8 x, const uint8 y, const uint8 w,
+void SetActiveRect(const uint8 x, const uint8 y, const uint8 w,
 		const uint8 h)
 {
 	SEND_COMMAND(CMD_COLUMN_ADDRESS_SET);
@@ -320,9 +320,13 @@ static void SetActiveRect(const uint8 x, const uint8 y, const uint8 w,
 	SEND_DATA(y + h - 1);
 }
 
-void Send(uint8_t is_cmd, uint8_t data)
+void Send(isCmd is_cmd, uint8_t data)
 {
-	GpioSetDc(!is_cmd);
+	if(is_cmd == TRUE) {
+		gpio_clr(PTQS, PIN1);
+	}else{
+		gpio_set(PTQS, PIN1, SET);
+	}
 	qspi_write(QSPI0, data);
 //	QSPIPollTransferByteRaw(data, 0);
 	
