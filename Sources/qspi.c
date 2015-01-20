@@ -47,7 +47,7 @@ void qspi_init(QSPI qspi, QSPI_MODE mode, uint32_t baudrate){
 	}
 	
 	if(baudrate > 1){
-		uint8_t baud = (uint8_t)(80000000L / (baudrate * 2));
+		uint8_t baud = (uint8_t)(SYSTEM_CLOCK_KHZ * 1000 / (baudrate * 2));
 		MCF_QSPI_QMR |= baud;
 	}
 	

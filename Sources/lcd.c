@@ -144,7 +144,7 @@ static const uint8 DATA_8x16[1520] = {
 
 void LcdInit(void)
 {
-	qspi_init(QSPI0, Q_MODE0, 1000000L);
+	qspi_init(QSPI0, Q_MODE0, 1500000L);
 	gpio_init(PTQS, PIN1, GPIO, OUT, CLR);
 	gpio_init(PTQS, PIN6, GPIO, OUT, CLR);
 
