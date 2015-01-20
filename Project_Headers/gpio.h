@@ -47,7 +47,8 @@ typedef enum{
 
 typedef enum{
 	CLR = 0,
-	SET = 1
+	SET = 1,
+	UNKNOWN = 2
 }STATE;
 
 void gpio_init(PTn port, PINn pin, FUNC function, DDR dir, STATE state);
@@ -55,6 +56,7 @@ void gpio_set_func(PTn port, PINn pin, FUNC function);
 void gpio_set_ddr(PTn port, PINn pin, DDR dir);
 void gpio_set(PTn port, PINn pin, STATE state);
 void gpio_clr(PTn port, PINn pin);
+uint8_t gpio_get(PTn port, PINn pin);
 
 
 

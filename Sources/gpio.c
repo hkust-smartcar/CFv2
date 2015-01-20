@@ -16,13 +16,14 @@ const uint32 GPIO_PORT_PIN_ASSIGN_BASE = (GPIO_PORT_OUTPUT_BASE + 0x60);
 #define GPIO_PAR(x) (*(vuint8 *)(GPIO_PORT_PIN_ASSIGN_BASE + x))
 #define GPIO_DDR(x) (*(vuint8 *)(GPIO_PORT_DDR_BASE + x))
 #define GPIO_PORT(x) (*(vuint8 *)(GPIO_PORT_OUTPUT_BASE + x))
+#define GPIO_SET(x) (*(vuint8 *)(0x40100030 + x))
 
 void gpio_init(PTn port, PINn pin, FUNC function, DDR dir, STATE state){
 	gpio_set_func(port, pin, function);
 	gpio_set_ddr(port, pin, dir);
 	if(state==SET) {
 		gpio_set(port, pin, state);
-	}else{
+	}else if(state==CLR){
 		gpio_clr(port, pin);
 	}
 }
@@ -70,6 +71,10 @@ void gpio_set(PTn port, PINn pin, STATE state){
 }
 void gpio_clr(PTn port, PINn pin){
 	gpio_set(port, pin, CLR);
+}
+
+uint8_t gpio_get(PTn port, PINn pin){
+	return (uint8_t) ((GPIO_SET(port) >> pin) & 0x1);
 }
 
 /*Add Pin Drive Strength*/
