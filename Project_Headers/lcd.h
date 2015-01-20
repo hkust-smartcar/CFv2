@@ -7,6 +7,11 @@ typedef enum{
 	TRUE = 1
 }isCmd;
 
+#define W 128
+#define H 160
+#define FONT_W 8
+#define FONT_H 16
+
 void SetActiveRect(const uint8 x, const uint8 y, const uint8 w,
 		const uint8 h);
 void Send(isCmd is_cmd, uint8_t data);

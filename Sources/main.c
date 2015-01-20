@@ -19,6 +19,7 @@
 #include "interrupts.h"
 #include "i2c_master.h"
 #include "adc.h"
+#include "pwm.h"
 
 
 volatile uint32_t g_counter = 0;
@@ -41,6 +42,16 @@ int main(void)
 	gpio_init(PTTJ, PIN2, GPIO, OUT, SET);
 	gpio_init(PTTJ, PIN6, GPIO, OUT, CLR);
 	gpio_init(PTTJ, PIN7, GPIO, OUT, CLR);
+	
+	gpio_init(PTTJ, PIN3, GPIO, IN, UNKNOWN);
+	gpio_init(PTTJ, PIN4, GPIO, IN, UNKNOWN);
+	gpio_init(PTTJ, PIN5, GPIO, IN, UNKNOWN);
+	gpio_init(PTTI, PIN0, GPIO, IN, UNKNOWN);
+	gpio_init(PTTI, PIN1, GPIO, IN, UNKNOWN);
+	
+	gpio_init(PTTI, PIN3, GPIO, IN, UNKNOWN);
+	gpio_init(PTTI, PIN5, GPIO, IN, UNKNOWN);
+	gpio_init(PTTI, PIN6, GPIO, IN, UNKNOWN);
 	/*GPIO tests*/
 	
 	gpio_init(PTTC, PIN3, GPIO, OUT, CLR);
@@ -51,64 +62,75 @@ int main(void)
 	
 	/*uart tests*/
 	LcdInit();
-	LcdClear(0xABCD);
-	LcdDrawString(0, 32, "CCD2", 0xFFF0,0x0000);
+	LcdClear(0x0);
 
 		
 	PITInit(0);
 	PIT_EnableInts(&pit_isr_handler, 0);
 	PIT_Start(0);
+	
+	PWMInfo pwminfo = {
+			1, //channel input clock
+			0, //prescaler a
+			2, //prescaler b
+			0, //divisor of clock a to clock sa
+			2, //divisor of clock b to clock sb
+			0, //left align or center align mode
+			0, //concatenate as 16bit
+			0, //polarity
+			0, //stop in doze mode
+			0, //stop in debug mode
+			10, //pwm output period
+			3 //duty cycle
+			
+	};
+	
+	gpio_init(PTTC,PIN1, ALT2, OUT, UNKNOWN);
+	PWMInit(pwminfo, 2);
+	PWMEnable(2);
 
-//	mpu6050_init();
+	mpu6050_init();
 
 	char s[100];
 	int16_t* omega;
 	uint16_t v=0;
+	uint8_t up = 0, down = 0, right = 0, left = 0, center = 0;
 	while(1){
-//		mpu6050_update();
-//		sprintf(s, "%d \n", (int16_t) GetTemp());
-
-//		delay_ms(100);
 		if(g_counter%1000==0){
-			LcdDrawString(0, 1, "CCD2\0", 0xFFF0,0x0000);
-//			qspi_write(QSPI0, 0b1001011);
+			up = gpio_get(PTTJ, PIN3);
+//			up = gpio_get(PTTI, PIN3);
+			down = gpio_get(PTTJ, PIN4);
+//			down = gpio_get(PTTI, PIN5);
+			left = gpio_get(PTTJ, PIN5);
+//			left = gpio_get(PTTI, PIN6);
+			right = gpio_get(PTTI, PIN0);
+			center = gpio_get(PTTI, PIN1);
+//			mpu6050_update();
 //			v = ADonce(PIN5);
 //			omega = GetOmega();
-//			sprintf(s, "%d %d %d %d %d %d\n", g_counter, v, omega[0], omega[1], omega[2], GetTemp());
+//			sprintf(s, "%d %d %d %d\0", omega[0], omega[1], omega[2], GetTemp());
+			sprintf(s, "%d %d %d %d %d\0", up, down, left, right, center);
+			LcdDrawString(0, 1, s, 0xFFF0,0x0000);
 //			uart_putstr(0, s);
 			if(on==1){
 //				gpio_clr(PTTJ,PIN4);
 				gpio_set(PTTJ, PIN1, SET);
-//				gpio_set(PTTJ, PIN2, SET);
-//				gpio_clr(PTTJ, PIN6);
-//				gpio_clr(PTTJ, PIN7);
+				gpio_set(PTTJ, PIN2, SET);
+				gpio_clr(PTTJ, PIN6);
+				gpio_clr(PTTJ, PIN7);
 //				gpio_clr(PTTC, PIN3);
 				on=0;
 			}else{
 //				gpio_set(PTTJ,PIN4,SET);
 				gpio_clr(PTTJ, PIN1);
-//				gpio_clr(PTTJ, PIN2);
-//				gpio_set(PTTJ, PIN6, SET);
-//				gpio_set(PTTJ, PIN7, SET);
+				gpio_clr(PTTJ, PIN2);
+				gpio_set(PTTJ, PIN6, SET);
+				gpio_set(PTTJ, PIN7, SET);
 //				gpio_set(PTTC, PIN3, SET);
 				on=1;
 			}
 		}
 	}
-
-
-//	if(g_counter > 1000){
-//		
-//		if(on==1){
-//			gpio_clr(PTTJ,PIN4);
-//			on=0;
-//		}else{
-//			gpio_set(PTTJ,PIN4,SET);
-//			on=1;
-//		}
-//		
-//		delay_ms(1000);
-//	}
 
 
 }
