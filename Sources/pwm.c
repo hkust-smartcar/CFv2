@@ -19,6 +19,12 @@ uint8 shutdown = 0;
 */
 int8 PWMInit(PWMInfo pwminfo, uint8 u8PWMModule)
 {
+
+	/*Clock A = Internal Bus Clock / 2^Prescaler
+	Clock SA = Clock A / (2 * PWMSCLA)
+	PWMFrequency = Clock(A,B,SA, or SB) / PWMPERn
+	Duty Cycle = (1 - PWMPOL[PPOLn] - PWMDTYn/PWMPERn) * 100
+	*/
 	//GPIO setting for PWM, polarity setting, input clock and alignment setting
 	switch(u8PWMModule)
 	{
