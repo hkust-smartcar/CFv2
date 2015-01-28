@@ -7,8 +7,10 @@
 #include <stdlib.h>
 #include "i2c_master.h"
 #include "delay.h"
-
+int is_inited = 0;
 void I2CInit(){
+	if(is_inited) return;
+	
 	uint8 temp;
 
 	MCF_SCM_PPMRL &= ~MCF_SCM_PPMRL_CDI2C0;
@@ -46,6 +48,8 @@ void I2CInit(){
 //		 enable the module again 		
 		MCF_I2C_I2CR(0) = MCF_I2C_I2CR_IEN;	
 	}
+	
+	is_inited = 1;
 }
 
 void I2CWait(){
