@@ -9,9 +9,7 @@
 
 #define GpioSetRst(x) gpio_set(PTQS, PIN6, x);
 #define GpioSetDc(x) gpio_set(PTQS, PIN1, x);
-//#define GpioSetCs(x) Bit3_PutVal(x)
-//#define GpioSetSdat(x) Bit4_PutVal(x)
-//#define GpioSetSclk(x) Bit5_PutVal(x)
+
 
 void SEND_COMMAND(uint8_t dat){
 	Send(TRUE, dat);
@@ -20,26 +18,6 @@ void SEND_COMMAND(uint8_t dat){
 void SEND_DATA(uint8_t dat){
 	Send(FALSE, dat);
 }
-
-#define CMD_SW_RESET 0x01
-#define CMD_SLEEP_OUT 0x11
-#define CMD_DISPLAY_ON 0x29
-#define CMD_COLUMN_ADDRESS_SET 0x2A
-#define CMD_ROW_ADDRESS_SET 0x2B
-#define CMD_MEMORY_WRITE 0x2C
-#define CMD_MEM_DATA_ACCESS_CTRL 0x36
-#define CMD_PIXEL_FORMAT 0x3A
-#define CMD_FRAME_RATE_CTRL_NORMAL 0xB1
-#define CMD_POWER_CTRL1 0xC0
-#define CMD_POWER_CTRL2 0xC1
-#define CMD_POWER_CTRL3 0xC2
-#define CMD_POWER_CTRL4 0xC3
-#define CMD_POWER_CTRL5 0xC4
-#define CMD_VCOM_CTRL 0xC5
-#define CMD_GAMMA_CORRECTION_POS_POLARITY 0xE0
-#define CMD_GAMMA_CORRECTION_NEG_POLARITY 0xE1
-
-
 
 static const uint8 DATA_8x16[1520] = {
 		0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
